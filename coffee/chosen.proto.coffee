@@ -389,7 +389,7 @@ class Chosen extends AbstractChosen
 
     results = 0
 
-    searchText = if @search_field.val() is @default_text then "" else $('<div/>').text($.trim(@search_field.val())).html()
+    searchText = if @search_field.value is @default_text then "" else @search_field.value.strip().escapeHTML()
     textToSearch = searchText.replace(/[\-\[\]\{\}\(\)\*\+\?\.,\\\^\$\|\#\s]/g, "\\$&")
     regex = new RegExp('^' + textToSearch, 'i')
     zregex = new RegExp(textToSearch, 'i')
