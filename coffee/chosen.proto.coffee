@@ -334,6 +334,8 @@ class Chosen extends AbstractChosen
         @selected_item.down("span").update(item.html)
         this.single_deselect_control_build() if @allow_single_deselect
 
+      @on_option_add(item.value) if @on_option_add
+
       this.results_hide() unless evt.metaKey and @is_multiple
 
       @search_field.value = ""
@@ -346,6 +348,7 @@ class Chosen extends AbstractChosen
       if @allow_creation(new_option)
         @form_field.insert(Element('option', {selected: true, value: new_option}).update(new_option))
         @results_update_field(evt)
+        @on_option_add(new_option) if @on_option_add
       @form_field.simulate("change") if typeof Event.simulate is 'function'
       @search_field.value = ""
       @results_hide()
@@ -370,7 +373,10 @@ class Chosen extends AbstractChosen
     result_data = @results_data[pos]
     result_data.selected = false
 
-    @form_field.options[result_data.options_index].selected = false
+    option = @form_field.options[result_data.options_index]
+    option.selected = false
+    @on_option_remove(option.value) if @on_option_remove
+
     result = $(@container_id + "_o_" + pos)
     result.removeClassName("result-selected").addClassName("active-result").show()
 
