@@ -28,6 +28,8 @@ class AbstractChosen
     @result_highlighted = null
     @result_single_selected = null
     @allow_single_deselect = if @options.allow_single_deselect? and @form_field.options[0].text == "" then @options.allow_single_deselect else false
+    @on_option_add = @options.on_option_add
+    @on_option_remove = @options.on_option_remove
     @disable_search_threshold = @options.disable_search_threshold || 0
     @choices = 0
     @results_none_found = @options.no_results_text or "No results match"
